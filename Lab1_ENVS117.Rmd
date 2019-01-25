@@ -1,0 +1,133 @@
+---
+title: "Lab 1 - Basic R syntax"
+author: "C.J. Gabbe"
+date: "1/9/2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Steps in today's lab
+1. Create a new RScript
+2. Install packages
+3. Load packages
+4. Set your working directory
+5. Load and browse a csv file
+6. Write a comment explaining what you did
+7. Save file as RData format
+8. Remove files from the environment
+9. Load RData file
+
+Getting started: Create a 'Lab1' folder in your Z drive.
+
+# 1. Create a new RScript
+An RScript is simply a plain text file that you can use to write and save your code. One of the biggest advantages of using an RScript, instead of just entering line by line in the console is that you can create a record of what you've done, replicate and update your work later, and share your work with others.
+
+You create a new RScript by going to File > New File > RScript. Save the RScript to the 'Lab1' folder in your Z drive.
+
+# 2. Install packages
+Packages are extensions of R. You can think of them as apps for the software. You'll only need to install each R package once. Let's start by installing the [Tidyverse](https://www.tidyverse.org/) package. First try:
+```{r eval = FALSE}
+install.packages("tidyverse")
+```
+
+In the unlikely event that the code above doesn't work, you may need to designate the CRAN repository:
+```{r eval = FALSE}
+install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+```
+
+
+# 3. Load packages
+Every time you start a new R session, you'll need to re-load any packages you're going to use during the session. You load packages using the `library` call.
+
+```{r eval = FALSE}
+library("tidyverse")
+```
+
+# 4. Set your working directory
+The working directory points to where you will be loading and saving files. This will save you time and make it easier to others to replicate your work. We'll start by setting our working directories to our Z drive folders. 
+
+```{r eval = FALSE}
+setwd("Z:/")
+```
+
+You can check your working directory by typing `getwd()` into the console.
+
+# 5. Load and browse a csv file
+
+Download the state of California's [csv file of mobile home parks](https://drive.google.com/file/d/143wes8McRuGb0dR03jDPGnVpPCj5GOki/view?usp=sharing). Move the file into your Lab1 folder.
+
+```{r eval = FALSE}
+CA_MHPs <- read_csv("Lab1/HCD MH Park Query 2.28.2018.csv")
+```
+
+You can also read a csv file directly from the internet. Let's say we want to download the state's data from its [Affordable Housing and Sustainable Communities program in 2015](https://data.ca.gov/dataset/california-affordable-housing-and-sustainable-communities/resource/71c65af2-9e3f-4db8-9c8e#{view-map:{lonField:!Longitude,latField:!Latitude}}). 
+
+```{r eval = FALSE}
+CA_AHSC <- read_csv("https://data.ca.gov/node/201/download")
+```
+
+Where do you think I got the URL for the download in the code above?
+
+
+# 6. Write a comment explaining what you did
+You can write comments -- to your future self and to others -- by using # marks.
+Any line that starts with a # will be a text comment. For example:
+
+```{r eval = FALSE}
+# Don't forget to load packages before you need them
+library("tidyverse")
+```
+
+Or you can place comments to the right of your code:
+
+```{r eval = FALSE}
+library("tidyverse") # Tidyverse is a must-have package
+```
+
+# 7. Save file as RData format
+Save your first csv file; notice the .RData extension:
+```{r eval = FALSE}
+save(CA_MHPs, file = "Lab1/HCD_MH_Park_Query_2.28.2018.RData") 
+```
+What does "CA_MHPs" refer to?
+
+Now try saving the Excel file with employee housing to the same folder as an RData file.
+
+# 8. Remove files from the environment
+Sometimes you want to clear your environment. There are a few ways to do this: 
+
+1. You can clear everything using the little broom icon.
+2. You can list the objects you want to clear (and separate multiple objects with a comma):
+```{r eval = FALSE}
+rm(CA_MHPs)
+```
+3. You can clear everything:
+```{r eval = FALSE}
+rm(list=ls())
+```
+
+# 9. Load RData file
+Let's try reloading the mobile home park data back into our environment:
+
+```{r eval = FALSE}
+load("Lab1/HCD_MH_Park_Query_2.28.2018.RData") 
+```
+
+# Applying what you've learned
+
+Save the RScript you've been working with. Edit and add to your RScript to do the following:
+
+1. Install the sf package (we're going to use tidyverse too, but you already installed it earlier).
+2. Load the "sf" package (you should already have code to load tidyverse)
+3. Import the [csv with AHSC that also includes CalEnviroscreen](https://data.ca.gov/dataset/california-affordable-housing-and-sustainable-communities/resource/17c14016-0ab3-44f8-adb0#{view-graph:{graphOptions:{hooks:{processOffset:{},bindEvents:{}}}},graphOptions:{hooks:{processOffset:{},bindEvents:{}}},view-map:{lonField:!Longitude,latField:!Latitude}}) from the state's open data site. Write the code to import it from your Z drive and directly from the internet.
+4. Add a comment explaining a sentence about the contents of the csv
+5. Save the csv into RData format in your Lab1 folder.
+6. Remove the file from Environment.
+7. Load the RData version of your file back into the Environment.
+8. Save your RScript to your Lab1 folder.
+
